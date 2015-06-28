@@ -98,4 +98,27 @@ NSString * const kTwitterBaseUrl=@"https://api.twitter.com";
     }];
 }
 
+
+-(void) newPost:(NSString *)postContent{
+        NSDictionary *parameters = @{@"status": postContent};
+            [self POST:@"1.1/statuses/update.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSLog(@"success post");
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"post fail %@",error);
+            }];
+    
+    // 傳訊息到某人的msg裡面拉！私訊
+//    NSDictionary *parameters = @{@"text": @"hihi",
+//                                 @"screen_name": @"emily1233212002"};
+//        [self POST:@"1.1/direct_messages/new.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            NSLog(@"success post %@",responseObject);
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            NSLog(@"post fail %@",error);
+//        }];
+
+    
+}
+
+
+
 @end

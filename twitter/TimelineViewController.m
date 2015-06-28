@@ -12,11 +12,13 @@
 #import "TwitterClient.h"
 #import "Tweet.h"
 #import "UIImageView+AFNetworking.h"
+#import "PostViewController.h"
+
 
 @interface TimelineViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *timelineTable;
 @property (strong, nonatomic) NSArray* tweets;
-
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -37,7 +39,10 @@
     
     // do Navigation settings
     [self setNavgationBar];
-        // Do any additional setup after loading the view.
+
+    // PULL refresh table view
+    [self addRefreshViewController];
+    
 }
 
 - (void) setNavgationBar{
@@ -69,7 +74,9 @@
 }
 
 -(void)onPostButton{
-    
+    PostViewController *vc =  [self.storyboard instantiateViewControllerWithIdentifier:@"PostView"];  //記得要用storyboard id 傳過去
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nvc animated:YES completion:nil];
 }
 
 
@@ -99,6 +106,8 @@
 //    }
     Tweet *tweet = self.tweets[indexPath.row];
     cell.contentLabel.text=tweet.text;
+    cell.nameLabel.text=tweet.user.name;
+    cell.screenNamelabel.text=[NSString stringWithFormat:@"@%@",tweet.user.screenName];
     
     //處理時間格式
     //NSString *createdAtString =tweet.createdAt;
@@ -138,6 +147,18 @@
 - (IBAction)onLogout:(UIButton *)sender {
     [User logout];
     [self dismissViewControllerAnimated:NO completion:nil];
+}
+
+-(void)addRefreshViewController{
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"uploading your timeline..."];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self.timelineTable addSubview:self.refreshControl]; //把RefreshControl加到TableView中
+}
+-(void) refresh {
+    [self.refreshControl beginRefreshing];
+    [self loadTimeline];
+    [self.refreshControl endRefreshing];
 }
 
 

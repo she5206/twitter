@@ -20,6 +20,7 @@
 		10E3AAEE1B3E684900B3A797 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E3AAED1B3E684900B3A797 /* User.m */; };
 		10E3AAF11B3E90D700B3A797 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E3AAF01B3E90D700B3A797 /* TimelineViewController.m */; };
 		10E3AAF41B3E937C00B3A797 /* TimelineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E3AAF31B3E937C00B3A797 /* TimelineCell.m */; };
+		10E670391B402EA400F51D6C /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E670381B402EA400F51D6C /* PostViewController.m */; };
 		27EC6A1C50EC8AFA3CDDC84A /* Pods_twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4070C6B7A1DDA986C9839891 /* Pods_twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,8 @@
 		10E3AAF01B3E90D700B3A797 /* TimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineViewController.m; sourceTree = "<group>"; };
 		10E3AAF21B3E937C00B3A797 /* TimelineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimelineCell.h; path = ../TimelineCell.h; sourceTree = "<group>"; };
 		10E3AAF31B3E937C00B3A797 /* TimelineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimelineCell.m; path = ../TimelineCell.m; sourceTree = "<group>"; };
+		10E670371B402EA400F51D6C /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
+		10E670381B402EA400F51D6C /* PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
 		34DA48938DCD245ECA3916BE /* Pods-twitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-twitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-twitter/Pods-twitter.release.xcconfig"; sourceTree = "<group>"; };
 		4070C6B7A1DDA986C9839891 /* Pods_twitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_twitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD9094E669AAD1516759E3F6 /* Pods-twitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-twitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-twitter/Pods-twitter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -123,6 +126,8 @@
 				10E3AAF01B3E90D700B3A797 /* TimelineViewController.m */,
 				10E3AAF21B3E937C00B3A797 /* TimelineCell.h */,
 				10E3AAF31B3E937C00B3A797 /* TimelineCell.m */,
+				10E670371B402EA400F51D6C /* PostViewController.h */,
+				10E670381B402EA400F51D6C /* PostViewController.m */,
 			);
 			path = twitter;
 			sourceTree = "<group>";
@@ -336,6 +341,7 @@
 				10E3AAF11B3E90D700B3A797 /* TimelineViewController.m in Sources */,
 				10E3AAEE1B3E684900B3A797 /* User.m in Sources */,
 				106A9C2F1B3E46EA006D9CC8 /* ViewController.m in Sources */,
+				10E670391B402EA400F51D6C /* PostViewController.m in Sources */,
 				10A998241B3E4B1D0028934B /* TwitterClient.m in Sources */,
 				10E3AAF41B3E937C00B3A797 /* TimelineCell.m in Sources */,
 				10E3AAEB1B3E683E00B3A797 /* Tweet.m in Sources */,
