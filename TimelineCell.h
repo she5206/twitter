@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *profile;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *screenNamelabel;
-
+@property (weak, nonatomic) IBOutlet UIButton *replyBtn;
+@property (weak, nonatomic) IBOutlet UIButton *retweetBtn;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteBtn;
 
 @end

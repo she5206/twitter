@@ -17,6 +17,12 @@
 
 @implementation PostViewController
 
+-(void)viewWillAppear:(BOOL)animated{
+    if(self.replyID!=nil){
+        self.postLabel.text= [NSString stringWithFormat:@"@%@ ",self.replyName];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -50,8 +56,16 @@
 }
 
 -(void)onTweetButton{
-    [[TwitterClient sharedInstance] newPost:self.postLabel.text];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    if(self.replyID==nil){
+        [[TwitterClient sharedInstance] newPost:self.postLabel.text];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else{
+        [[TwitterClient sharedInstance] reply:self.postLabel.text status_id:self.replyID];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        self.replyID=nil;
+        self.replyName =nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

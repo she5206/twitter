@@ -13,12 +13,14 @@
 #import "Tweet.h"
 #import "UIImageView+AFNetworking.h"
 #import "PostViewController.h"
+#import "FullTweetViewController.h"
 
 
 @interface TimelineViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *timelineTable;
 @property (strong, nonatomic) NSArray* tweets;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 
 @end
 
@@ -42,6 +44,7 @@
 
     // PULL refresh table view
     [self addRefreshViewController];
+    
     
 }
 
@@ -95,6 +98,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];  //取消選取
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.tweets.count;
 }
@@ -116,10 +123,13 @@
     cell.createdAtLabel.text = [self convertTimeToAgo:tweet.createdAt];
 
     // 處理圖片
-    
     NSString *imageURL= tweet.user.profileImageUrl;
     [cell.profile setImageWithURL:[NSURL URLWithString:imageURL]];
 
+
+    cell.replyBtn.tag = indexPath.row;
+    cell.retweetBtn.tag = indexPath.row;
+    cell.favoriteBtn.tag = indexPath.row;
     return cell;
 }
 
@@ -160,16 +170,44 @@
     [self loadTimeline];
     [self.refreshControl endRefreshing];
 }
+- (IBAction)onRetweet:(UIButton *)sender {
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sender tag] inSection:0];
+    Tweet *tweet = self.tweets[indexPath.row];
+    [[TwitterClient sharedInstance] retweet:tweet.tid];
+    // change image
+    UIButton *button = (UIButton *)sender;
+    [button setImage:[UIImage imageNamed:@"retweeted.png"] forState:UIControlStateNormal];
+}
 
+- (IBAction)onFavorite:(UIButton *)sender {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sender tag] inSection:0];
+    Tweet *tweet = self.tweets[indexPath.row];
+    [[TwitterClient sharedInstance] favorite:tweet.tid];
+    // change image
+    UIButton *button = (UIButton *)sender;
+    [button setImage:[UIImage imageNamed:@"favorited.png"] forState:UIControlStateNormal];
+}
+- (IBAction)onReply:(UIButton *)sender {
+    PostViewController *vc =  [self.storyboard instantiateViewControllerWithIdentifier:@"PostView"];  //記得要用storyboard id 傳過去
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sender tag] inSection:0];
+    Tweet *tweet = self.tweets[indexPath.row];
+    vc.replyID = tweet.tid;
+    vc.replyName = tweet.user.screenName;
+    
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nvc animated:YES completion:nil];
+}
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    TimelineCell *cell = sender; // 轉型
+    NSIndexPath *indexPath = [self.timelineTable indexPathForCell:cell];
+    NSDictionary *tweet = self.tweets[indexPath.row];
+    FullTweetViewController *dest = segue.destinationViewController; //傳給下一頁
+    dest.tweet = tweet;
 }
-*/
 
 @end

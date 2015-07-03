@@ -119,6 +119,36 @@ NSString * const kTwitterBaseUrl=@"https://api.twitter.com";
     
 }
 
+-(void) retweet:(NSString *)retweetId{
+    //NSDictionary *parameters = @{@"status": postContent};
+    NSString *url = [NSString stringWithFormat:@"1.1/statuses/retweet/%@.json",retweetId];
+    [self POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"success retweet");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"post fail %@",error);
+    }];
+}
+
+-(void) favorite:(NSString *)favoriteId{
+    NSDictionary *parameters = @{@"id": favoriteId};
+    [self POST:@"1.1/favorites/create.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"success favorite");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"favorite fail %@",error);
+    }];
+}
+
+-(void) reply:(NSString *)postContent status_id:(NSString *)status_id{
+    NSDictionary *parameters = @{@"status":postContent , @"in_reply_to_status_id":status_id };
+    NSLog(@"%@", parameters);
+    [self POST:@"1.1/statuses/update.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"success reply");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"replay fail %@",error);
+    }];
+}
+
+
 
 
 @end

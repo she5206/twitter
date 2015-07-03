@@ -7,6 +7,7 @@
 //
 
 #import "Tweet.h"
+#import "Entity.h"
 
 @implementation Tweet
 -(id) initWithDictionary:(NSDictionary *)dictionary{
@@ -14,11 +15,15 @@
     if(self){
         NSLog(@"%@", dictionary);
         self.user = [[User alloc] initWithDictionary:dictionary[@"user"]];
+        self.tid=dictionary[@"id_str"];
         self.text = dictionary[@"text"];
         NSString *createdAtString =dictionary[@"created_at"];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"EEE MMM d HH:mm:ss Z y";
         self.createdAt = [formatter dateFromString:createdAtString];
+        self.retweetNumber = dictionary[@"retweet_count"];
+        self.favoriteNumber = dictionary[@"favorite_count"];
+        self.entity = [[Entity alloc] initWithDictionary:dictionary[@"extended_entities"]];
     }
     
     return self;

@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
 @property (weak, nonatomic) IBOutlet UITextField *postLabel;
-
+@property (strong, nonatomic) NSString *replyID;
+@property (strong, nonatomic) NSString *replyName;
 @end
